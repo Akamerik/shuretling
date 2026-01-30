@@ -47,6 +47,13 @@ button{background:var(--accent);color:white;border:none;padding:0.6rem 1rem;bord
 .content-block ul{padding-left:1.5rem}
 .content-block li{margin:0.5rem 0;line-height:1.6}
 
+/* Recommendations */
+.recommendations-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin:1.5rem 0}
+.rec-card{background:linear-gradient(135deg, rgba(43,110,219,0.08), transparent);padding:1.5rem;border-radius:8px;border-left:4px solid var(--accent);box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.rec-card h3{color:var(--accent);margin-top:0}
+.rec-card p{font-size:0.95rem;margin:0.8rem 0}
+.rec-add-btn{background:var(--accent);color:white;border:none;padding:0.6rem 1rem;border-radius:6px;cursor:pointer;font-weight:bold;width:100%;margin-top:0.8rem}
+
 /* Catalog */
 .catalog-controls{margin:0.5rem 0}
 .cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}

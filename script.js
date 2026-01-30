@@ -9,7 +9,10 @@ document.addEventListener('DOMContentLoaded', function(){
   }
 
   navLinks.forEach(btn => {
-    btn.addEventListener('click', () => showSection(btn.dataset.section));
+    btn.addEventListener('click', () => {
+      showSection(btn.dataset.section);
+      window.scrollTo(0, 0);
+    });
   });
 
   // Dark / Light theme using data-theme on :root
@@ -131,6 +134,22 @@ document.addEventListener('DOMContentLoaded', function(){
       updateCartUI();
       showToast('Order placed successfully!');
     }, 2000);
+  });
+
+  document.addEventListener('click', function(e){
+    if(e.target.matches('.rec-add-btn')){
+      const bundle = e.target.dataset.bundle;
+      const price = 50;
+      const existing = cartItems.find(x => x.name === bundle);
+      if(existing){
+        existing.qty += 1;
+      } else {
+        cartItems.push({name: bundle, price: price, qty: 1});
+      }
+      localStorage.setItem('shuretling-cartItems', JSON.stringify(cartItems));
+      updateCartUI();
+      showToast(`Added ${bundle} to cart!`);
+    }
   });
 
   document.addEventListener('click', function(e){
