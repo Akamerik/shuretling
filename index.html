@@ -23,6 +23,22 @@
             <button class="lang-btn" onclick="changeLanguage('en')" title="English">🇬🇧 EN</button>
             <button class="lang-btn" onclick="changeLanguage('es')" title="Español">🇪🇸 ES</button>
           </div>
+          <div class="currency-selector">
+            <select id="currencySelect" onchange="changeCurrency(this.value)">
+              <option value="USD">$ USD</option>
+              <option value="EUR">€ EUR</option>
+              <option value="GBP">£ GBP</option>
+              <option value="MXN">$ MXN</option>
+              <option value="ARS">$ ARS</option>
+              <option value="COP">$ COP</option>
+              <option value="PEN">S/ PEN</option>
+              <option value="CLP">$ CLP</option>
+              <option value="JPY">¥ JPY</option>
+              <option value="CNY">¥ CNY</option>
+              <option value="INR">₹ INR</option>
+              <option value="BRL">R$ BRL</option>
+            </select>
+          </div>
           <button class="header-btn" id="accountBtn" data-i18n="account">👤 Account</button>
           <button class="header-btn" id="wishlistBtn" data-i18n="wishlist">❤️ Wishlist <span id="wishlistCount">0</span></button>
           <button class="header-btn" id="cartBtn" data-i18n="cart">🛒 Cart <span id="cartCount">0</span></button>

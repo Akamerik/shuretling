@@ -207,6 +207,10 @@ const translations = {
     'order_total': 'Order Total',
     'items_ordered': 'Items Ordered',
     
+    // Currency
+    'currency': 'Currency',
+    'select_currency': 'Select Currency',
+    
     // Account
     'my_account': 'My Account',
     'profile': 'Profile',
@@ -316,6 +320,10 @@ const translations = {
     'name': 'Nombre',
     'address': 'Dirección',
     
+    // Currency
+    'currency': 'Moneda',
+    'select_currency': 'Seleccionar Moneda',
+    
     // Categories
     'electronics': 'Electrónica',
     'books': 'Libros',
@@ -348,6 +356,41 @@ const translations = {
 };
 
 let currentLanguage = localStorage.getItem('shuretling-language') || 'en';
+
+// Currency system
+const currencyRates = {
+  'USD': { symbol: '$', name: 'US Dollar', rate: 1 },
+  'EUR': { symbol: '€', name: 'Euro', rate: 0.92 },
+  'GBP': { symbol: '£', name: 'British Pound', rate: 0.79 },
+  'MXN': { symbol: '$', name: 'Mexican Peso', rate: 20.50 },
+  'ARS': { symbol: '$', name: 'Argentine Peso', rate: 865.00 },
+  'COP': { symbol: '$', name: 'Colombian Peso', rate: 3950.00 },
+  'PEN': { symbol: 'S/', name: 'Peruvian Sol', rate: 3.85 },
+  'CLP': { symbol: '$', name: 'Chilean Peso', rate: 890.00 },
+  'JPY': { symbol: '¥', name: 'Japanese Yen', rate: 150.00 },
+  'CNY': { symbol: '¥', name: 'Chinese Yuan', rate: 7.30 },
+  'INR': { symbol: '₹', name: 'Indian Rupee', rate: 83.50 },
+  'BRL': { symbol: 'R$', name: 'Brazilian Real', rate: 5.00 }
+};
+
+let currentCurrency = localStorage.getItem('shuretling-currency') || 'USD';
+
+function formatPrice(price) {
+  const rate = currencyRates[currentCurrency].rate;
+  const symbol = currencyRates[currentCurrency].symbol;
+  const convertedPrice = (price * rate).toFixed(2);
+  
+  if (currentCurrency === 'JPY') {
+    return symbol + Math.round(convertedPrice);
+  }
+  return symbol + convertedPrice;
+}
+
+function changeCurrency(currency) {
+  currentCurrency = currency;
+  localStorage.setItem('shuretling-currency', currency);
+  location.reload();
+}
 
 function t(key) {
   return translations[currentLanguage][key] || translations['en'][key] || key;
@@ -386,6 +429,10 @@ let currentProduct = null;
 document.addEventListener('DOMContentLoaded', function(){
   updatePageTranslations();
   document.querySelector(`.lang-btn[onclick="changeLanguage('${currentLanguage}')"]`)?.classList.add('active');
+  const currencySelect = document.getElementById('currencySelect');
+  if (currencySelect) {
+    currencySelect.value = currentCurrency;
+  }
   initNavigation();
   initTheme();
   initSearch();
@@ -585,7 +632,7 @@ function createProductCard(product) {
       <img src="${product.image}" alt="${product.name}" class="product-image" onerror="this.src='https://via.placeholder.com/300?text=Product'">
       <div class="product-name">${product.name}</div>
       <div class="product-rating">${stars} ${product.rating.toFixed(1)}</div>
-      <div class="product-price">$${product.price.toFixed(2)}</div>
+      <div class="product-price">${formatPrice(product.price)}</div>
       <button class="product-btn" data-id="${product.id}">Add to Cart</button>
     </div>
   `;
@@ -621,11 +668,11 @@ function showProductDetail() {
   document.getElementById('detailRating').innerHTML = `${stars} ${currentProduct.rating.toFixed(1)} (${Math.floor(Math.random() * 5000) + 100} reviews)`;
   document.getElementById('detailCategory').textContent = `Category: ${currentProduct.category}`;
   document.getElementById('detailDesc').textContent = currentProduct.desc;
-  document.getElementById('detailPrice').textContent = `$${currentProduct.price.toFixed(2)}`;
+  document.getElementById('detailPrice').textContent = formatPrice(currentProduct.price);
   
   const discount = Math.floor(Math.random() * 30);
   const originalPrice = currentProduct.price / (1 - discount / 100);
-  document.getElementById('detailOriginal').textContent = `$${originalPrice.toFixed(2)}`;
+  document.getElementById('detailOriginal').textContent = formatPrice(originalPrice);
   document.getElementById('detailDiscount').textContent = `${discount}% OFF`;
   
   document.getElementById('detailStock').textContent = `✅ In Stock (${Math.floor(Math.random() * 50) + 10} available)`;
@@ -679,8 +726,8 @@ function renderCart() {
       <div style="font-size:40px;display:flex;align-items:center;justify-content:center;">${item.emoji}</div>
       <div class="cart-item-info">
         <h4>${item.name}</h4>
-        <p>$${item.price.toFixed(2)} x ${item.qty}</p>
-        <p style="font-weight:bold;">$${(item.price * item.qty).toFixed(2)}</p>
+        <p>${formatPrice(item.price)} x ${item.qty}</p>
+        <p style="font-weight:bold;">${formatPrice(item.price * item.qty)}</p>
       </div>
       <button class="cart-item-remove" data-idx="${idx}">Remove</button>
     </div>
@@ -704,9 +751,9 @@ function updateCartTotal() {
   const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
   const tax = subtotal * 0.1;
   const total = subtotal + tax;
-  document.getElementById('cartSubtotal').textContent = `$${subtotal.toFixed(2)}`;
-  document.getElementById('cartTax').textContent = `$${tax.toFixed(2)}`;
-  document.getElementById('cartTotal').textContent = `$${total.toFixed(2)}`;
+  document.getElementById('cartSubtotal').textContent = formatPrice(subtotal);
+  document.getElementById('cartTax').textContent = formatPrice(tax);
+  document.getElementById('cartTotal').textContent = formatPrice(total);
 }
 
 document.addEventListener('click', function(e) {
@@ -720,7 +767,7 @@ document.addEventListener('click', function(e) {
     };
     orders.push(order);
     localStorage.setItem('shophub-orders', JSON.stringify(orders));
-    showToast(`Order placed! Total: $${total.toFixed(2)} 🎉`);
+    showToast(`Order placed! Total: ${formatPrice(total)} 🎉`);
     cart = [];
     localStorage.setItem('shophub-cart', JSON.stringify(cart));
     updateCounts();
@@ -760,7 +807,7 @@ function renderOrders() {
       <div class="order-details">
         <p><strong>Date:</strong> ${order.date}</p>
         <p><strong>Items:</strong> ${order.items.length}</p>
-        <p><strong>Total:</strong> $${order.total}</p>
+        <p><strong>Total:</strong> ${formatPrice(parseFloat(order.total))}</p>
       </div>
     </div>
   `).join('');
