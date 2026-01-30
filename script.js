@@ -147,6 +147,218 @@ const productNames = {
   ]
 };
 
+// Language translations
+const translations = {
+  en: {
+    // Header
+    'home': 'Home',
+    'search': 'Search',
+    'account': 'Account',
+    'wishlist': 'Wishlist',
+    'cart': 'Cart',
+    'language': 'Language',
+    
+    // Search section
+    'search_products': 'Search products...',
+    'category': 'Category',
+    'price_range': 'Price Range',
+    'rating': 'Rating',
+    'apply_filters': 'Apply Filters',
+    'search_results': 'Search Results',
+    'no_results': 'No products found',
+    
+    // Product details
+    'product_details': 'Product Details',
+    'in_stock': 'In Stock',
+    'available': 'available',
+    'add_to_cart': 'Add to Cart',
+    'add_to_wishlist': 'Add to Wishlist',
+    'quantity': 'Quantity',
+    'reviews': 'Reviews',
+    'stars': 'stars',
+    'rating_value': 'Rating',
+    'description': 'Description',
+    'price': 'Price',
+    'original_price': 'Original Price',
+    'discount': 'Discount',
+    
+    // Cart
+    'shopping_cart': 'Shopping Cart',
+    'your_cart': 'Your Cart',
+    'cart_empty': 'Your cart is empty',
+    'subtotal': 'Subtotal',
+    'tax': 'Tax (10%)',
+    'total': 'Total',
+    'checkout': 'Checkout',
+    'remove': 'Remove',
+    'continue_shopping': 'Continue Shopping',
+    'item': 'Item',
+    'items': 'Items',
+    
+    // Wishlist
+    'your_wishlist': 'Your Wishlist',
+    'wishlist_empty': 'Your wishlist is empty',
+    
+    // Orders
+    'order_history': 'Order History',
+    'orders': 'Orders',
+    'no_orders': 'No orders yet',
+    'order_date': 'Order Date',
+    'order_total': 'Order Total',
+    'items_ordered': 'Items Ordered',
+    
+    // Account
+    'my_account': 'My Account',
+    'profile': 'Profile',
+    'settings': 'Settings',
+    'dark_mode': 'Dark Mode',
+    'notifications': 'Notifications',
+    'save_changes': 'Save Changes',
+    'email': 'Email',
+    'name': 'Name',
+    'address': 'Address',
+    
+    // Categories
+    'electronics': 'Electronics',
+    'books': 'Books',
+    'fashion': 'Fashion',
+    'home': 'Home & Garden',
+    'sports': 'Sports & Outdoors',
+    'toys': 'Toys & Games',
+    'deals': 'Special Deals',
+    'featured_products': 'Featured Products',
+    'shop_by_category': 'Shop by Category',
+    
+    // Buttons
+    'shop_now': 'Shop Now',
+    'view_all': 'View All',
+    'buy_now': 'Buy Now',
+    'close': 'Close',
+    'save': 'Save',
+    'cancel': 'Cancel',
+    
+    // Messages
+    'added_to_cart': 'Added to cart!',
+    'added_to_wishlist': 'Added to wishlist!',
+    'removed_from_cart': 'Removed from cart',
+    'removed_from_wishlist': 'Removed from wishlist',
+    'order_placed': 'Order placed successfully!',
+    'select_quantity': 'Please select a quantity',
+    'welcome': 'Welcome to Shuretling',
+    'discover': 'Discover amazing products at unbeatable prices'
+  },
+  es: {
+    // Header
+    'home': 'Inicio',
+    'search': 'Buscar',
+    'account': 'Mi Cuenta',
+    'wishlist': 'Lista de Deseos',
+    'cart': 'Carrito',
+    'language': 'Idioma',
+    
+    // Search section
+    'search_products': 'Buscar productos...',
+    'category': 'Categoría',
+    'price_range': 'Rango de Precio',
+    'rating': 'Calificación',
+    'apply_filters': 'Aplicar Filtros',
+    'search_results': 'Resultados de Búsqueda',
+    'no_results': 'No se encontraron productos',
+    
+    // Product details
+    'product_details': 'Detalles del Producto',
+    'in_stock': 'En Stock',
+    'available': 'disponibles',
+    'add_to_cart': 'Agregar al Carrito',
+    'add_to_wishlist': 'Agregar a Lista de Deseos',
+    'quantity': 'Cantidad',
+    'reviews': 'Reseñas',
+    'stars': 'estrellas',
+    'rating_value': 'Calificación',
+    'description': 'Descripción',
+    'price': 'Precio',
+    'original_price': 'Precio Original',
+    'discount': 'Descuento',
+    
+    // Cart
+    'shopping_cart': 'Carrito de Compras',
+    'your_cart': 'Tu Carrito',
+    'cart_empty': 'Tu carrito está vacío',
+    'subtotal': 'Subtotal',
+    'tax': 'Impuesto (10%)',
+    'total': 'Total',
+    'checkout': 'Proceder al Pago',
+    'remove': 'Eliminar',
+    'continue_shopping': 'Continuar Comprando',
+    'item': 'Artículo',
+    'items': 'Artículos',
+    
+    // Wishlist
+    'your_wishlist': 'Tu Lista de Deseos',
+    'wishlist_empty': 'Tu lista de deseos está vacía',
+    
+    // Orders
+    'order_history': 'Historial de Pedidos',
+    'orders': 'Pedidos',
+    'no_orders': 'Sin pedidos aún',
+    'order_date': 'Fecha del Pedido',
+    'order_total': 'Total del Pedido',
+    'items_ordered': 'Artículos Pedidos',
+    
+    // Account
+    'my_account': 'Mi Cuenta',
+    'profile': 'Perfil',
+    'settings': 'Configuración',
+    'dark_mode': 'Modo Oscuro',
+    'notifications': 'Notificaciones',
+    'save_changes': 'Guardar Cambios',
+    'email': 'Correo Electrónico',
+    'name': 'Nombre',
+    'address': 'Dirección',
+    
+    // Categories
+    'electronics': 'Electrónica',
+    'books': 'Libros',
+    'fashion': 'Moda',
+    'home': 'Hogar y Jardín',
+    'sports': 'Deportes y Aire Libre',
+    'toys': 'Juguetes y Juegos',
+    'deals': 'Ofertas Especiales',
+    'featured_products': 'Productos Destacados',
+    'shop_by_category': 'Comprar por Categoría',
+    
+    // Buttons
+    'shop_now': 'Comprar Ahora',
+    'view_all': 'Ver Todo',
+    'buy_now': 'Comprar Ahora',
+    'close': 'Cerrar',
+    'save': 'Guardar',
+    'cancel': 'Cancelar',
+    
+    // Messages
+    'added_to_cart': '¡Agregado al carrito!',
+    'added_to_wishlist': '¡Agregado a lista de deseos!',
+    'removed_from_cart': 'Eliminado del carrito',
+    'removed_from_wishlist': 'Eliminado de lista de deseos',
+    'order_placed': '¡Pedido realizado exitosamente!',
+    'select_quantity': 'Por favor selecciona una cantidad',
+    'welcome': 'Bienvenido a Shuretling',
+    'discover': 'Descubre productos increíbles a precios imbatibles'
+  }
+};
+
+let currentLanguage = localStorage.getItem('shuretling-language') || 'en';
+
+function t(key) {
+  return translations[currentLanguage][key] || translations['en'][key] || key;
+}
+
+function changeLanguage(lang) {
+  currentLanguage = lang;
+  localStorage.setItem('shuretling-language', lang);
+  location.reload();
+}
+
 const categories = ['Electronics', 'Books', 'Fashion', 'Home', 'Sports', 'Toys'];
 for (let i = 0; i < 140; i++) {
   const cat = categories[Math.floor(Math.random() * categories.length)];
@@ -172,6 +384,8 @@ let currentProduct = null;
 
 // Initialize
 document.addEventListener('DOMContentLoaded', function(){
+  updatePageTranslations();
+  document.querySelector(`.lang-btn[onclick="changeLanguage('${currentLanguage}')"]`)?.classList.add('active');
   initNavigation();
   initTheme();
   initSearch();
@@ -182,6 +396,40 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 
 // Navigation
+function changeLanguage(lang) {
+  currentLanguage = lang;
+  localStorage.setItem('shuretling-language', lang);
+  updatePageTranslations();
+}
+
+function updatePageTranslations() {
+  // Update all elements with data-i18n attribute
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    const translated = t(key);
+    
+    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+      el.placeholder = translated;
+    } else if (el.tagName === 'BUTTON') {
+      const span = el.querySelector('span');
+      if (span) {
+        el.textContent = translated + ' ';
+        el.appendChild(span);
+      } else {
+        el.textContent = translated;
+      }
+    } else {
+      el.textContent = translated;
+    }
+  });
+  
+  // Update language button styles
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  document.querySelector(`.lang-btn[onclick="changeLanguage('${currentLanguage}')"]`)?.classList.add('active');
+}
+
 function initNavigation() {
   document.querySelectorAll('.nav-link').forEach(btn => {
     btn.addEventListener('click', (e) => {

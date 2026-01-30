@@ -116,7 +116,38 @@ body {
 
 .header-actions {
   display: flex;
-  gap: 20px;
+  gap: 15px;
+  align-items: center;
+}
+
+.language-selector {
+  display: flex;
+  gap: 8px;
+  border-right: 1px solid rgba(255,255,255,0.2);
+  padding-right: 15px;
+}
+
+.lang-btn {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: var(--header-text);
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: var(--transition);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.lang-btn:hover {
+  background-color: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.5);
+}
+
+.lang-btn.active {
+  background-color: var(--accent);
+  color: #000;
+  border-color: var(--accent);
 }
 
 .header-btn {
