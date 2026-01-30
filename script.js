@@ -58,13 +58,80 @@ document.addEventListener('DOMContentLoaded', function(){
   // Cart functionality with prices
   const cartCountEl = document.getElementById('cartCount');
   const cartBtn = document.getElementById('cartBtn');
+  const cartEmpty = document.getElementById('cartEmpty');
+  const cartContent = document.getElementById('cartContent');
+  const cartItemsDiv = document.getElementById('cartItems');
+  
   let cartItems = JSON.parse(localStorage.getItem('shuretling-cartItems') || '[]');
   
   function updateCartUI(){
     const total = cartItems.reduce((sum, item) => sum + item.qty, 0);
     cartCountEl.textContent = total;
+    renderCart();
   }
+
+  function renderCart(){
+    const isEmpty = cartItems.length === 0;
+    cartEmpty.style.display = isEmpty ? 'block' : 'none';
+    cartContent.style.display = isEmpty ? 'none' : 'block';
+    
+    if(isEmpty) return;
+    
+    cartItemsDiv.innerHTML = '';
+    cartItems.forEach((item, idx) => {
+      const itemDiv = document.createElement('div');
+      itemDiv.className = 'cart-item';
+      const itemTotal = (item.price * item.qty).toFixed(2);
+      itemDiv.innerHTML = `
+        <img src="https://via.placeholder.com/60?text=${item.name}" alt="${item.name}">
+        <div class="cart-item-info">
+          <h4>${item.name}</h4>
+          <p>$${item.price.toFixed(2)} x ${item.qty}</p>
+          <p style="font-weight:bold;">$${itemTotal}</p>
+        </div>
+        <button class="cart-item-remove" data-idx="${idx}">Remove</button>
+      `;
+      cartItemsDiv.appendChild(itemDiv);
+    });
+    
+    updateCartTotal();
+  }
+
+  function updateCartTotal(){
+    const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.qty), 0);
+    const tax = subtotal * 0.10;
+    const total = subtotal + tax;
+    
+    document.getElementById('cartSubtotal').textContent = '$' + subtotal.toFixed(2);
+    document.getElementById('cartTax').textContent = '$' + tax.toFixed(2);
+    document.getElementById('cartTotal').textContent = '$' + total.toFixed(2);
+  }
+
   updateCartUI();
+
+  // Remove from cart
+  cartItemsDiv.addEventListener('click', function(e){
+    if(e.target.matches('.cart-item-remove')){
+      const idx = parseInt(e.target.dataset.idx);
+      cartItems.splice(idx, 1);
+      localStorage.setItem('shuretling-cartItems', JSON.stringify(cartItems));
+      updateCartUI();
+      showToast('Item removed from cart');
+    }
+  });
+
+  // Checkout button
+  document.getElementById('checkoutBtn').addEventListener('click', function(){
+    const total = cartItems.reduce((sum, item) => sum + (item.price * item.qty), 0) * 1.10;
+    showToast(`Order total: $${total.toFixed(2)}. Thank you for your purchase! 🎉`);
+    // Simulate checkout
+    setTimeout(() => {
+      cartItems = [];
+      localStorage.setItem('shuretling-cartItems', JSON.stringify(cartItems));
+      updateCartUI();
+      showToast('Order placed successfully!');
+    }, 2000);
+  });
 
   document.addEventListener('click', function(e){
     if(e.target.matches('.buy')){
