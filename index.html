@@ -38,23 +38,53 @@
         <input id="search" type="search" placeholder="Search flowers (e.g. rose)">
       </div>
       <div id="cards" class="cards-grid">
-        <article class="card" data-name="rose" data-id="rose-1">
-          <div class="thumb"><img src="images/rose.svg" alt="Rose"></div>
+        <article class="card" data-name="rose" data-id="rose-1" data-price="12.99">
+          <div class="thumb"><img src="https://images.unsplash.com/photo-1518895949257-7621c3c786d7?w=200&h=200&fit=crop" alt="Rose"></div>
           <h3>Rose</h3>
           <p>Classic red rose — symbol of love.</p>
-          <button class="buy" data-item="Rose">Buy</button>
+          <p class="price">$12.99</p>
+          <input type="number" class="qty" value="1" min="1" max="10">
+          <button class="buy" data-item="Rose" data-price="12.99">Buy</button>
         </article>
-        <article class="card" data-name="tulip" data-id="tulip-1">
-          <div class="thumb"><img src="images/tulip.svg" alt="Tulip"></div>
+        <article class="card" data-name="tulip" data-id="tulip-1" data-price="9.99">
+          <div class="thumb"><img src="https://images.unsplash.com/photo-1520763185298-1b434c919eba?w=200&h=200&fit=crop" alt="Tulip"></div>
           <h3>Tulip</h3>
           <p>Bright tulip — spring favorite.</p>
-          <button class="buy" data-item="Tulip">Buy</button>
+          <p class="price">$9.99</p>
+          <input type="number" class="qty" value="1" min="1" max="10">
+          <button class="buy" data-item="Tulip" data-price="9.99">Buy</button>
         </article>
-        <article class="card" data-name="sunflower" data-id="sunflower-1">
-          <div class="thumb"><img src="images/sunflower.svg" alt="Sunflower"></div>
+        <article class="card" data-name="sunflower" data-id="sunflower-1" data-price="11.99">
+          <div class="thumb"><img src="https://images.unsplash.com/photo-1597848212624-72afc50d7066?w=200&h=200&fit=crop" alt="Sunflower"></div>
           <h3>Sunflower</h3>
           <p>Sunny sunflower — brings joy.</p>
-          <button class="buy" data-item="Sunflower">Buy</button>
+          <p class="price">$11.99</p>
+          <input type="number" class="qty" value="1" min="1" max="10">
+          <button class="buy" data-item="Sunflower" data-price="11.99">Buy</button>
+        </article>
+        <article class="card" data-name="lavender" data-id="lavender-1" data-price="8.99">
+          <div class="thumb"><img src="https://images.unsplash.com/photo-1599599810694-b3fa12669653?w=200&h=200&fit=crop" alt="Lavender"></div>
+          <h3>Lavender</h3>
+          <p>Fragrant lavender — calming scent.</p>
+          <p class="price">$8.99</p>
+          <input type="number" class="qty" value="1" min="1" max="10">
+          <button class="buy" data-item="Lavender" data-price="8.99">Buy</button>
+        </article>
+        <article class="card" data-name="dahlia" data-id="dahlia-1" data-price="14.99">
+          <div class="thumb"><img src="https://images.unsplash.com/photo-1553696100-e37b2fbb5f00?w=200&h=200&fit=crop" alt="Dahlia"></div>
+          <h3>Dahlia</h3>
+          <p>Elegant dahlia — stunning colors.</p>
+          <p class="price">$14.99</p>
+          <input type="number" class="qty" value="1" min="1" max="10">
+          <button class="buy" data-item="Dahlia" data-price="14.99">Buy</button>
+        </article>
+        <article class="card" data-name="peony" data-id="peony-1" data-price="16.99">
+          <div class="thumb"><img src="https://images.unsplash.com/photo-1592079231879-5ddc0654c615?w=200&h=200&fit=crop" alt="Peony"></div>
+          <h3>Peony</h3>
+          <p>Luxurious peony — full blooms.</p>
+          <p class="price">$16.99</p>
+          <input type="number" class="qty" value="1" min="1" max="10">
+          <button class="buy" data-item="Peony" data-price="16.99">Buy</button>
         </article>
       </div>
     </section>
@@ -66,7 +96,28 @@
         <button id="themeToggle">Toggle Light / Dark</button>
       </div>
       <div class="setting-row">
-        <p>Language: English (default). More languages can be added later.</p>
+        <label for="langSelect">Language / Idioma:</label>
+        <select id="langSelect">
+          <option value="en">English</option>
+          <option value="es">Español</option>
+        </select>
+      </div>
+      <div class="setting-row">
+        <label for="currencySelect">Currency:</label>
+        <select id="currencySelect">
+          <option value="USD">USD ($)</option>
+          <option value="EUR">EUR (€)</option>
+          <option value="GBP">GBP (£)</option>
+        </select>
+      </div>
+      <div class="setting-row">
+        <label>
+          <input type="checkbox" id="notifyToggle" checked> Enable notifications
+        </label>
+      </div>
+      <div class="setting-row">
+        <h3>Store Locations</h3>
+        <div id="locations"></div>
       </div>
     </section>
 

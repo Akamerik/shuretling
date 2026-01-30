@@ -55,30 +55,107 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   }
 
-  // Buy button sample
-  // Cart functionality
+  // Cart functionality with prices
   const cartCountEl = document.getElementById('cartCount');
   const cartBtn = document.getElementById('cartBtn');
-
-  // load cart count
-  let cartCount = parseInt(localStorage.getItem('shuretling-cart') || '0', 10);
+  let cartItems = JSON.parse(localStorage.getItem('shuretling-cartItems') || '[]');
+  
   function updateCartUI(){
-    cartCountEl.textContent = cartCount;
+    const total = cartItems.reduce((sum, item) => sum + item.qty, 0);
+    cartCountEl.textContent = total;
   }
   updateCartUI();
 
   document.addEventListener('click', function(e){
     if(e.target.matches('.buy')){
-      cartCount = cartCount + 1;
-      localStorage.setItem('shuretling-cart', String(cartCount));
+      const card = e.target.closest('.card');
+      const qty = parseInt(card.querySelector('.qty').value) || 1;
+      const item = e.target.dataset.item;
+      const price = parseFloat(e.target.dataset.price);
+      
+      const existing = cartItems.find(x => x.name === item);
+      if(existing){
+        existing.qty += qty;
+      } else {
+        cartItems.push({name: item, price: price, qty: qty});
+      }
+      
+      localStorage.setItem('shuretling-cartItems', JSON.stringify(cartItems));
       updateCartUI();
-      showToast('Added to cart (' + cartCount + ')');
+      
+      const total = (price * qty).toFixed(2);
+      showToast(`Added ${qty}x ${item} ($${total}) to cart`);
+      
+      // Notification
+      if(document.getElementById('notifyToggle').checked){
+        notifyPurchase(item, qty, price);
+      }
     }
   });
 
   cartBtn.addEventListener('click', function(){
-    showToast('Cart has ' + cartCount + ' item(s)');
+    const total = cartItems.reduce((sum, item) => sum + (item.price * item.qty), 0).toFixed(2);
+    const count = cartItems.reduce((sum, item) => sum + item.qty, 0);
+    showToast(`Cart: ${count} items, Total: $${total}`);
   });
+
+  // Language and Currency
+  const langSelect = document.getElementById('langSelect');
+  const currencySelect = document.getElementById('currencySelect');
+  const notifyToggle = document.getElementById('notifyToggle');
+
+  const savedLang = localStorage.getItem('shuretling-lang') || 'en';
+  const savedCurrency = localStorage.getItem('shuretling-currency') || 'USD';
+  
+  langSelect.value = savedLang;
+  currencySelect.value = savedCurrency;
+
+  langSelect.addEventListener('change', function(){
+    localStorage.setItem('shuretling-lang', langSelect.value);
+    showToast('Language changed to ' + langSelect.value);
+  });
+
+  currencySelect.addEventListener('change', function(){
+    localStorage.setItem('shuretling-currency', currencySelect.value);
+    showToast('Currency changed to ' + currencySelect.value);
+  });
+
+  notifyToggle.addEventListener('change', function(){
+    localStorage.setItem('shuretling-notify', notifyToggle.checked);
+  });
+
+  // Store Locations
+  const locations = [
+    {name: 'Downtown Flower Shop', city: 'New York, NY', lat: 40.7128, lng: -74.0060},
+    {name: 'Spring Blooms', city: 'Los Angeles, CA', lat: 34.0522, lng: -118.2437},
+    {name: 'Garden Paradise', city: 'Chicago, IL', lat: 41.8781, lng: -87.6298},
+    {name: 'Petal & Stem', city: 'Houston, TX', lat: 29.7604, lng: -95.3698},
+    {name: 'Bloom House', city: 'Miami, FL', lat: 25.7617, lng: -80.1918}
+  ];
+
+  const locDiv = document.getElementById('locations');
+  locations.forEach(loc => {
+    const card = document.createElement('div');
+    card.className = 'location-card';
+    const mapsUrl = `https://maps.google.com/?q=${loc.lat},${loc.lng}`;
+    card.innerHTML = `<h4>${loc.name}</h4><p>${loc.city}</p><a href="${mapsUrl}" target="_blank">View on Google Maps →</a>`;
+    locDiv.appendChild(card);
+  });
+
+  function notifyPurchase(item, qty, price){
+    const msg = `🌸 New purchase: ${qty}x ${item} for $${(price * qty).toFixed(2)}`;
+    console.log(msg);
+    
+    // Browser notification (if user grants permission)
+    if('Notification' in window && Notification.permission === 'granted'){
+      new Notification('Shuretling Sale', {body: msg});
+    }
+  }
+
+  // Request notification permission
+  if('Notification' in window && Notification.permission === 'default'){
+    Notification.requestPermission();
+  }
 
   function showToast(text, time=1800){
     toast.textContent = text;
@@ -86,3 +163,4 @@ document.addEventListener('DOMContentLoaded', function(){
     setTimeout(()=> toast.style.display = 'none', time);
   }
 });
+

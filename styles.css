@@ -48,11 +48,20 @@ button{background:var(--accent);color:white;border:none;padding:0.6rem 1rem;bord
 .card{padding:1rem;border-radius:8px;background:linear-gradient(180deg, rgba(255,255,255,0.03), transparent);text-align:center}
 .thumb img{width:80px;height:80px;object-fit:contain}
 .card h3{margin:0.4rem 0}
-.card p{font-size:0.95rem;color:rgba(0,0,0,0.6)}
+.card p{font-size:0.95rem;color:rgba(0,0,0,0.65)}
+.card .price{font-weight:bold;font-size:1.2rem;color:var(--accent);margin:0.5rem 0}
+.card .qty{width:60px;padding:0.3rem;margin:0.5rem 0;border:1px solid var(--accent);border-radius:4px}
 .card .buy{margin-top:0.6rem}
 
 /* Settings */
 .setting-row{display:flex;align-items:center;gap:1rem;padding:0.6rem 0}
+.setting-row select{padding:0.4rem;border:1px solid var(--accent);border-radius:4px;background:var(--card);color:var(--text)}
+.setting-row label{display:flex;align-items:center;gap:0.5rem}
+#locations{display:grid;gap:0.8rem}
+.location-card{background:linear-gradient(135deg, rgba(43,110,219,0.05), transparent);padding:0.8rem;border-radius:6px;border-left:3px solid var(--accent)}
+.location-card h4{margin:0 0 0.3rem 0}
+.location-card a{color:var(--accent);text-decoration:none;font-weight:500}
+.location-card a:hover{text-decoration:underline}
 
 /* Toast */
 .toast{position:fixed;right:1rem;bottom:1rem;background:var(--card);color:var(--text);padding:0.6rem 1rem;border-radius:6px;box-shadow:0 6px 20px rgba(0,0,0,0.2);display:none}
