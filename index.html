@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Shuretling</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <h1 class="brand">Shuretling</h1>
+      <nav class="main-nav" aria-label="Main navigation">
+        <button class="nav-link" data-section="home">Home</button>
+        <button class="nav-link" data-section="catalog">Catalog</button>
+        <button class="nav-link" data-section="settings">Settings</button>
+      </nav>
+      <div class="header-actions">
+        <button id="cartBtn" class="cart-btn" aria-label="Open cart">Cart <span id="cartCount" class="cart-count">0</span></button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="home" class="page active">
+      <div class="hero">
+        <h2>Welcome to Shuretling</h2>
+        <p>A small flower shop website to learn web development.</p>
+      </div>
+      <div class="intro">
+        <p>Click on <strong>Catalog</strong> to see flowers. Use <strong>Settings</strong> to switch colors.</p>
+      </div>
+    </section>
+
+    <section id="catalog" class="page">
+      <h2>Catalog</h2>
+      <div class="catalog-controls">
+        <input id="search" type="search" placeholder="Search flowers (e.g. rose)">
+      </div>
+      <div id="cards" class="cards-grid">
+        <article class="card" data-name="rose" data-id="rose-1">
+          <div class="thumb"><img src="images/rose.svg" alt="Rose"></div>
+          <h3>Rose</h3>
+          <p>Classic red rose — symbol of love.</p>
+          <button class="buy" data-item="Rose">Buy</button>
+        </article>
+        <article class="card" data-name="tulip" data-id="tulip-1">
+          <div class="thumb"><img src="images/tulip.svg" alt="Tulip"></div>
+          <h3>Tulip</h3>
+          <p>Bright tulip — spring favorite.</p>
+          <button class="buy" data-item="Tulip">Buy</button>
+        </article>
+        <article class="card" data-name="sunflower" data-id="sunflower-1">
+          <div class="thumb"><img src="images/sunflower.svg" alt="Sunflower"></div>
+          <h3>Sunflower</h3>
+          <p>Sunny sunflower — brings joy.</p>
+          <button class="buy" data-item="Sunflower">Buy</button>
+        </article>
+      </div>
+    </section>
+
+    <section id="settings" class="page">
+      <h2>Settings</h2>
+      <div class="setting-row">
+        <label for="themeToggle">Theme:</label>
+        <button id="themeToggle">Toggle Light / Dark</button>
+      </div>
+      <div class="setting-row">
+        <p>Language: English (default). More languages can be added later.</p>
+      </div>
+    </section>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
