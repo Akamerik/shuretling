@@ -3,27 +3,290 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Shuretling</title>
+  <title>ShopHub - Everything You Need</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <!-- Header/Navigation -->
   <header class="site-header">
-    <div class="container header-inner">
-      <h1 class="brand">Shuretling</h1>
-      <nav class="main-nav" aria-label="Main navigation">
-        <button class="nav-link" data-section="home">Home</button>
-        <button class="nav-link" data-section="catalog">Catalog</button>
-        <button class="nav-link" data-section="recommendations">Recommendations</button>
-        <button class="nav-link" data-section="cart">Cart</button>
-        <button class="nav-link" data-section="settings">Settings</button>
-      </nav>
-      <div class="header-actions">
-        <button id="cartBtn" class="cart-btn" aria-label="Open cart">Cart <span id="cartCount" class="cart-count">0</span></button>
+    <div class="header-top">
+      <div class="container header-inner">
+        <div class="logo">
+          <h1>🛍️ ShopHub</h1>
+        </div>
+        <div class="search-bar">
+          <input type="text" id="searchInput" placeholder="Search products...">
+          <button id="searchBtn">Search</button>
+        </div>
+        <div class="header-actions">
+          <button class="header-btn" id="accountBtn">👤 Account</button>
+          <button class="header-btn" id="wishlistBtn">❤️ Wishlist <span id="wishlistCount">0</span></button>
+          <button class="header-btn" id="cartBtn">🛒 Cart <span id="cartCount">0</span></button>
+        </div>
       </div>
     </div>
+    <nav class="header-nav">
+      <div class="container nav-inner">
+        <button class="nav-link" data-section="home">Home</button>
+        <button class="nav-link" data-section="electronics">Electronics</button>
+        <button class="nav-link" data-section="books">Books</button>
+        <button class="nav-link" data-section="fashion">Fashion</button>
+        <button class="nav-link" data-section="home-garden">Home & Garden</button>
+        <button class="nav-link" data-section="sports">Sports</button>
+        <button class="nav-link" data-section="deals">🔥 Deals</button>
+        <button class="nav-link" data-section="orders">📦 Orders</button>
+      </div>
+    </nav>
   </header>
 
   <main class="container">
+    <!-- Home Section -->
+    <section id="home" class="page active">
+      <div class="hero-banner">
+        <div class="banner-content">
+          <h2>Welcome to ShopHub</h2>
+          <p>Everything you need, delivered to your door</p>
+          <button class="btn-primary" onclick="showSection('electronics')">Shop Now</button>
+        </div>
+      </div>
+
+      <div class="featured-categories">
+        <h3>Popular Categories</h3>
+        <div class="category-grid">
+          <div class="category-card" onclick="filterByCategory('Electronics')">
+            <div class="category-icon">📱</div>
+            <p>Electronics</p>
+          </div>
+          <div class="category-card" onclick="filterByCategory('Books')">
+            <div class="category-icon">📚</div>
+            <p>Books</p>
+          </div>
+          <div class="category-card" onclick="filterByCategory('Fashion')">
+            <div class="category-icon">👕</div>
+            <p>Fashion</p>
+          </div>
+          <div class="category-card" onclick="filterByCategory('Home')">
+            <div class="category-icon">🏠</div>
+            <p>Home & Garden</p>
+          </div>
+          <div class="category-card" onclick="filterByCategory('Sports')">
+            <div class="category-icon">⚽</div>
+            <p>Sports</p>
+          </div>
+          <div class="category-card" onclick="filterByCategory('Toys')">
+            <div class="category-icon">🎮</div>
+            <p>Toys & Games</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="featured-products">
+        <h3>Featured Products</h3>
+        <div id="featuredGrid" class="products-grid"></div>
+      </div>
+    </section>
+
+    <!-- Search/Browse Section -->
+    <section id="search" class="page">
+      <div class="search-header">
+        <h2>Search Results</h2>
+        <div class="filters">
+          <div class="filter-group">
+            <label>Category:</label>
+            <select id="categoryFilter">
+              <option value="">All Categories</option>
+              <option value="Electronics">Electronics</option>
+              <option value="Books">Books</option>
+              <option value="Fashion">Fashion</option>
+              <option value="Home">Home & Garden</option>
+              <option value="Sports">Sports</option>
+              <option value="Toys">Toys & Games</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>Price Range:</label>
+            <input type="number" id="minPrice" placeholder="Min" min="0">
+            <input type="number" id="maxPrice" placeholder="Max">
+          </div>
+          <div class="filter-group">
+            <label>Rating:</label>
+            <select id="ratingFilter">
+              <option value="">All Ratings</option>
+              <option value="4">⭐⭐⭐⭐+ (4+ stars)</option>
+              <option value="3">⭐⭐⭐+ (3+ stars)</option>
+            </select>
+          </div>
+          <button id="applyFilters">Apply Filters</button>
+          <button id="clearFilters">Clear Filters</button>
+        </div>
+      </div>
+      <div id="searchResults" class="products-grid"></div>
+    </section>
+
+    <!-- Product Detail Section -->
+    <section id="product-detail" class="page">
+      <div class="product-detail-container">
+        <div class="detail-image">
+          <div id="detailImage" style="font-size:120px;display:flex;align-items:center;justify-content:center;height:300px;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);border-radius:8px;"></div>
+        </div>
+        <div class="detail-info">
+          <h2 id="detailName"></h2>
+          <div id="detailRating" class="rating"></div>
+          <p id="detailCategory" class="detail-category"></p>
+          <p id="detailDesc" class="detail-description"></p>
+          <div class="price-section">
+            <span id="detailPrice" class="detail-price"></span>
+            <span id="detailOriginal" class="original-price"></span>
+            <span id="detailDiscount" class="discount"></span>
+          </div>
+          <div class="stock-info">
+            <p id="detailStock"></p>
+          </div>
+          <div class="quantity-selector">
+            <label>Quantity:</label>
+            <input type="number" id="detailQty" value="1" min="1" max="10">
+          </div>
+          <div class="action-buttons">
+            <button class="btn-primary" id="addToCartBtn">Add to Cart</button>
+            <button class="btn-secondary" id="addToWishlistBtn">❤️ Add to Wishlist</button>
+          </div>
+          <div class="reviews-section">
+            <h3>Customer Reviews</h3>
+            <div id="detailReviews"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Category Sections (Electronics, Books, Fashion, etc.) -->
+    <section id="electronics" class="page category-page">
+      <h2>Electronics</h2>
+      <div id="electronicsProducts" class="products-grid"></div>
+    </section>
+
+    <section id="books" class="page category-page">
+      <h2>Books</h2>
+      <div id="booksProducts" class="products-grid"></div>
+    </section>
+
+    <section id="fashion" class="page category-page">
+      <h2>Fashion</h2>
+      <div id="fashionProducts" class="products-grid"></div>
+    </section>
+
+    <section id="home-garden" class="page category-page">
+      <h2>Home & Garden</h2>
+      <div id="homeProducts" class="products-grid"></div>
+    </section>
+
+    <section id="sports" class="page category-page">
+      <h2>Sports & Outdoors</h2>
+      <div id="sportsProducts" class="products-grid"></div>
+    </section>
+
+    <section id="deals" class="page category-page">
+      <h2>🔥 Deals & Discounts</h2>
+      <div id="dealsProducts" class="products-grid"></div>
+    </section>
+
+    <!-- Cart Section -->
+    <section id="cart" class="page">
+      <h2>Shopping Cart</h2>
+      <div id="cartEmpty" class="empty-message">
+        <p>Your cart is empty</p>
+        <button class="btn-primary" onclick="showSection('home')">Continue Shopping</button>
+      </div>
+      <div id="cartContent" style="display:none;">
+        <div id="cartItems" class="cart-items"></div>
+        <div class="cart-summary">
+          <h3>Order Summary</h3>
+          <div class="summary-line">
+            <span>Subtotal:</span>
+            <span id="cartSubtotal">$0.00</span>
+          </div>
+          <div class="summary-line">
+            <span>Shipping:</span>
+            <span id="cartShipping">Free</span>
+          </div>
+          <div class="summary-line">
+            <span>Tax:</span>
+            <span id="cartTax">$0.00</span>
+          </div>
+          <div class="summary-line total">
+            <span>Total:</span>
+            <span id="cartTotal">$0.00</span>
+          </div>
+          <button id="checkoutBtn" class="btn-primary" style="width:100%;margin-top:20px;">Proceed to Checkout</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Wishlist Section -->
+    <section id="wishlist" class="page">
+      <h2>My Wishlist</h2>
+      <div id="wishlistEmpty" class="empty-message">
+        <p>Your wishlist is empty</p>
+        <button class="btn-primary" onclick="showSection('home')">Continue Shopping</button>
+      </div>
+      <div id="wishlistContent" style="display:none;">
+        <div id="wishlistItems" class="products-grid"></div>
+      </div>
+    </section>
+
+    <!-- Orders/History Section -->
+    <section id="orders" class="page">
+      <h2>Your Orders</h2>
+      <div id="ordersEmpty" class="empty-message">
+        <p>You haven't placed any orders yet</p>
+        <button class="btn-primary" onclick="showSection('home')">Start Shopping</button>
+      </div>
+      <div id="ordersContent" style="display:none;">
+        <div id="ordersList" class="orders-list"></div>
+      </div>
+    </section>
+
+    <!-- Account Section -->
+    <section id="account" class="page">
+      <h2>Account</h2>
+      <div class="account-container">
+        <div class="account-section">
+          <h3>Profile</h3>
+          <div class="profile-info">
+            <p><strong>Name:</strong> <span id="userName">Guest User</span></p>
+            <p><strong>Email:</strong> <span id="userEmail">guest@shophub.com</span></p>
+            <p><strong>Member Since:</strong> <span id="memberSince">January 2026</span></p>
+          </div>
+        </div>
+        <div class="account-section">
+          <h3>Settings</h3>
+          <div class="setting-row">
+            <label for="themeToggle">Theme:</label>
+            <button id="themeToggle">Toggle Light / Dark</button>
+          </div>
+          <div class="setting-row">
+            <label for="currencySelect">Currency:</label>
+            <select id="currencySelect">
+              <option value="USD">USD ($)</option>
+              <option value="EUR">EUR (€)</option>
+              <option value="GBP">GBP (£)</option>
+              <option value="JPY">JPY (¥)</option>
+            </select>
+          </div>
+          <div class="setting-row">
+            <label for="notifyToggle">Notifications:</label>
+            <input type="checkbox" id="notifyToggle">
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
     <section id="home" class="page active">
       <div class="hero">
         <h2>Welcome to Shuretling</h2>
