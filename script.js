@@ -128,7 +128,6 @@ document.addEventListener('DOMContentLoaded', function(){
   initTheme();
   initSearch();
   initFilters();
-  initCart();
   initButtons();
   renderHome();
   updateCounts();
@@ -137,7 +136,8 @@ document.addEventListener('DOMContentLoaded', function(){
 // Navigation
 function initNavigation() {
   document.querySelectorAll('.nav-link').forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
       const section = btn.dataset.section;
       if (section === 'home') renderHome();
       else if (section === 'electronics') renderCategory('Electronics');
@@ -474,29 +474,53 @@ function renderOrders() {
 
 // Buttons
 function initButtons() {
-  document.getElementById('cartBtn').addEventListener('click', () => {
-    renderCart();
-    showSection('cart');
-  });
-  document.getElementById('wishlistBtn').addEventListener('click', () => {
-    renderWishlist();
-    showSection('wishlist');
-  });
-  document.getElementById('accountBtn').addEventListener('click', () => {
-    showSection('account');
-  });
+  const cartBtn = document.getElementById('cartBtn');
+  const wishlistBtn = document.getElementById('wishlistBtn');
+  const accountBtn = document.getElementById('accountBtn');
+
+  if (cartBtn) {
+    cartBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      renderCart();
+      showSection('cart');
+    });
+  }
+
+  if (wishlistBtn) {
+    wishlistBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      renderWishlist();
+      showSection('wishlist');
+    });
+  }
+
+  if (accountBtn) {
+    accountBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      showSection('account');
+    });
+  }
 }
 
 function renderWishlist() {
+  const wishlistEmpty = document.getElementById('wishlistEmpty');
+  const wishlistContent = document.getElementById('wishlistContent');
+  
+  if (!wishlistEmpty || !wishlistContent) return;
+
   if (wishlist.length === 0) {
-    document.getElementById('wishlistEmpty').style.display = 'block';
-    document.getElementById('wishlistContent').style.display = 'none';
+    wishlistEmpty.style.display = 'block';
+    wishlistContent.style.display = 'none';
     return;
   }
-  document.getElementById('wishlistEmpty').style.display = 'none';
-  document.getElementById('wishlistContent').style.display = 'block';
-  document.getElementById('wishlistItems').innerHTML = wishlist.map(p => createProductCard(p)).join('');
-  addProductCardListeners();
+  wishlistEmpty.style.display = 'none';
+  wishlistContent.style.display = 'block';
+  
+  const itemsHtml = document.getElementById('wishlistItems');
+  if (itemsHtml) {
+    itemsHtml.innerHTML = wishlist.map(p => createProductCard(p)).join('');
+    addProductCardListeners();
+  }
 }
 
 // Utils
